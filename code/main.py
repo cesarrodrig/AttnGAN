@@ -49,7 +49,7 @@ def gen_example(wordtoix, algo, args):
         for name in filenames:
             if len(name) == 0:
                 continue
-            filepath = "%s/%s.txt" % (cfg.DATA_DIR, name)
+            filepath = name
             with open(filepath, "r") as f:
                 print("Load from:", name)
                 sentences = f.read().split("\n")
