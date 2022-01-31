@@ -5,6 +5,7 @@ from datasets import TextDataset
 from trainer import condGANTrainer as trainer
 
 import os
+import pathlib
 import sys
 import time
 import random
@@ -49,7 +50,7 @@ def gen_example(wordtoix, algo, args):
         for name in filenames:
             if len(name) == 0:
                 continue
-            filepath = name
+            filepath = pathlib.Path(name)
             with open(filepath, "r") as f:
                 print("Load from:", name)
                 sentences = f.read().split("\n")
@@ -85,7 +86,7 @@ def gen_example(wordtoix, algo, args):
                 cap = captions[idx]
                 c_len = len(cap)
                 cap_array[i, :c_len] = cap
-            key = name[(name.rfind("/") + 1) :]
+            key = filepath.stem
             data_dic[key] = [cap_array, cap_lens, sorted_indices, s]
     algo.gen_example(data_dic, args.save_maps)
 
